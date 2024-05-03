@@ -3,57 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Colorful Website</title>
+<title>Bingo Card</title>
 <style>
   body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+    ;background-color: #f0f0f0;
+	background-color: #000000;
+    font-family: Arial, sans-serif;
   }
-  .header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
+
+  .bingo-title {
     text-align: center;
+    font-size: 48px; /* Increased font size */
+    margin-bottom: 20px;
+    color: #fff; /* Text color */
+    background-color: #4CAF50; /* Background color */
+    padding: 10px 20px; /* Padding */
+    border-radius: 10px; /* Rounded corners */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for 3D effect */
   }
-  .content {
-    margin: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .bingo-card {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto;
+    max-width: 400px;
+    background-color: #ffc107;
+    border: 2px solid #333;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  .footer {
-    background-color: #333;
-    color: #fff;
+
+  .bingo-cell {
+    border: 1px solid #999;
     text-align: center;
-    padding: 10px 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 20px;
+  }
+
+  .bingo-cell.clicked {
+    background-color: lightblue;
+  }
+
+  .bingo-win {
+    background-color: lightgreen;
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Welcome to My Colorful Website</h1>
-</div>
+<h1 class="bingo-title">BINGO</h1>
 
-<div class="content">
-  <p>This is a simple website template with a colorful design. You can add your content here.</p>
-  <button id="colorButton">Change Background Color</button>
-</div>
-
-<div class="footer">
-  <p>Footer content goes here.</p>
-</div>
+<div class="bingo-card" id="bingoCard"></div>
 
 <script>
-  document.getElementById('colorButton').addEventListener('click', function() {
-    document.body.style.backgroundColor = 'hsl(' + Math.random() * 360 + ', 100%, 75%)';
-  });
+document.addEventListener('DOMContentLoaded', function () {
+  let cells = []; // Array to store cell elements
+  let winningCombos = [
+    [0, 1, 2, 3, 4], // Horizontal
+    [5, 6, 7, 8, 9],
+    [10, 11, 12, 13, 14],
+    [15, 16, 17, 18, 19],
+    [20, 21, 22, 23, 24],
+    [0, 5, 10, 15, 20], // Vertical
+    [1, 6, 11, 16, 21],
+    [2, 7, 12, 17, 22],
+    [3, 8, 13, 18, 23],
+    [4, 9, 14, 19, 24],
+    [0, 6, 12, 18, 24], // Diagonal
+    [4, 8, 12, 16, 20]
+  ];
+
+  // Function to generate a random number between min and max (inclusive)
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Function to generate unique random numbers for each cell in the bingo card
+  function generateRandomNumbers() {
+    let numbers = [];
+    while (numbers.length < 25) {
+      let randomNumber = getRandomNumber(1, 75);
+      if (!numbers.includes(randomNumber)) {
+        numbers.push(randomNumber);
+      }
+    }
+    return numbers;
+  }
+
+  // Function to create the bingo card
+  function createBingoCard() {
+    let numbers = generateRandomNumbers();
+    let bingoCard = document.getElementById('bingoCard');
+    for (let i = 0; i < 25; i++) {
+      let cell = document.createElement('div');
+      cell.classList.add('bingo-cell');
+      cell.textContent = numbers[i];
+      cell.addEventListener('click', function() {
+        this.classList.toggle('clicked');
+        checkForWin();
+      });
+      cells.push(cell);
+      bingoCard.appendChild(cell);
+    }
+  }
+
+  // Function to check for a win
+  function checkForWin() {
+    for (let combo of winningCombos) {
+      let win = true;
+      for (let index of combo) {
+        if (!cells[index].classList.contains('clicked')) {
+          win = false;
+          break;
+        }
+      }
+      if (win) {
+        displayWin();
+        break;
+      }
+    }
+  }
+
+  // Function to display win
+  function displayWin() {
+    document.getElementById('bingoCard').classList.add('bingo-win');
+    alert('Xfinity BINGO BOINGO! You won!');
+  }
+
+  createBingoCard();
+});
 </script>
 
 </body>
