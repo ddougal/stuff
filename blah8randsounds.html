@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+        }
+        table {
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 1.5em;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+        th {
+            cursor: default;
+            background-color: #007BFF;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .selected {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="bingoTitle">BINGO</h1>
+    <table id="bingoBoard"></table>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boardSize = 5;
+            const columns = ["B", "I", "N", "G", "O"];
+            const board = document.getElementById('bingoBoard');
+            const bingoTitle = document.getElementById('bingoTitle');
+            let grid = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
+            let numbers = generateUniqueNumbers();
+
+            // Array of background image URLs
+            const backgroundImages = [
+                     'image1.jpeg', 
+                'image2.jpeg',
+                'image3.jpeg',
+                'image4.jpeg',
+				'image5.jpeg',
+				'image6.jpeg'
+            ];
+
+            // Arrays of sound file URLs
+            const selectSounds = [
+                'dsskepch-punch.mp3',
+				'orc-ummmh.wav',
+				'orc-what.wav'
+            ];
+            const winSounds = [
+                'cheater.mp3',  
+                'cheater.mp3',  
+			'cheater.mp3' 
+            ];
+
+            // Function to set a random background image
+            function setRandomBackground() {
+                const randomImage = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+                document.body.style.backgroundImage = `url(${randomImage})`;
+            }
+
+            // Generate unique numbers for each column
+            function generateUniqueNumbers() {
+                let numbers = [];
+                for (let i = 0; i < columns.length; i++) {
+                    let start = i * 15 + 1;
+                    let end = start + 14;
+                    numbers.push(generateNumbersInRange(start, end, boardSize));
+                }
+                return numbers;
+            }
+
+            function generateNumbersInRange(min, max, count) {
+                let rangeNumbers = new Set();
+                while (rangeNumbers.size < count) {
+                    let num = Math.floor(Math.random() * (max - min + 1)) + min;
+                    rangeNumbers.add(num);
+                }
+                return Array.from(rangeNumbers);
+            }
+
+            // Create the Bingo board
+            function createBoard() {
+                // Add header row with column labels
+                const headerRow = document.createElement('tr');
+                columns.forEach(col => {
+                    const th = document.createElement('th');
+                    th.textContent = col;
+                    headerRow.appendChild(th);
+                });
+                board.appendChild(headerRow);
+
+                // Add number rows
+                for (let i = 0; i < boardSize; i++) {
+                    const row = document.createElement('tr');
+                    for (let j = 0; j < boardSize; j++) {
+                        const cell = document.createElement('td');
+                        cell.textContent = numbers[j][i];
+                        cell.addEventListener('click', () => toggleSelection(cell, i, j));
+                        row.appendChild(cell);
+                        grid[i][j] = false;
+                    }
+                    board.appendChild(row);
+                }
+            }
+
+            // Toggle cell selection and check for a win
+            function toggleSelection(cell, row, col) {
+                cell.classList.toggle('selected');
+                grid[row][col] = !grid[row][col];
+                playRandomSound(selectSounds); // Play random selection sound
+                if (checkWin()) {
+                    playRandomSound(winSounds); // Play random win sound
+                    setTimeout(() => {
+                        alert('BINGO! You win!');
+                    }, 100);
+                }
+            }
+
+            // Play a random sound from the provided array
+            function playRandomSound(sounds) {
+                const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+                const audio = new Audio(randomSound);
+                audio.play();
+            }
+
+            // Check for a win
+            function checkWin() {
+                // Check rows and columns
+                for (let i = 0; i < boardSize; i++) {
+                    if (grid[i].every(cell => cell) || grid.map(row => row[i]).every(cell => cell)) {
+                        return true;
+                    }
+                }
+                // Check diagonals
+                if (grid.every((row, i) => row[i]) || grid.every((row, i) => row[boardSize - 1 - i])) {
+                    return true;
+                }
+                return false;
+            }
+
+            // Change the color of the BINGO title randomly
+            function changeTitleColor() {
+                const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                bingoTitle.style.color = randomColor;
+            }
+
+            // Change color every second
+            setInterval(changeTitleColor, 1000);
+
+            // Set random background
+            setRandomBackground();
+
+            createBoard();
+        });
+    </script>
+</body>
+</html>
