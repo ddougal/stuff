@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-    <h1 id="bingoTitle">BINGO</h1>
+    <h1 id="bingoTitle">DOJ BINGO Xfinity</h1>
     <table id="bingoBoard"></table>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -69,6 +69,7 @@
                 'image3.jpeg',
                 'image4.jpeg',
 				'image5.jpeg',
+				'bingo3.jpeg',
 				'image6.jpeg'
             ];
 
@@ -80,7 +81,7 @@
             ];
             const winSounds = [
                 'cheater.mp3',  
-                'cheater.mp3',  
+                'impressive.mp3',
 			'cheater.mp3' 
             ];
 
@@ -141,9 +142,13 @@
                 grid[row][col] = !grid[row][col];
                 playRandomSound(selectSounds); // Play random selection sound
                 if (checkWin()) {
-                    playRandomSound(winSounds); // Play random win sound
+                    //playRandomSound(winSounds); // Play random win sound
+					setTimeout(() => {
+						playRandomSound(winSounds); // Play random win sound
+					}, 3000);
+					
                     setTimeout(() => {
-                        alert('BINGO! You win!');
+                        alert('BINGO Boingo Bazinga! You win!  Well played Bingo Master.');
                     }, 100);
                 }
             }
