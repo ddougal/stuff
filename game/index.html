@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press Your Luck Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  
+    <section class="showcase">
+            
+        <video src="fw.mp4" muted loop autoplay></video>
+        <div class="overlay"></div>
+        
+        <div class="container">    
+        <div class="board" id="board">
+            <!-- Squares will be generated here by JavaScript -->
+            <div class="center-square">
+                <div class="center-content" id="center-ct">Press<br>Your<br>Luck</div>
+            </div>
+        </div>
+        <div class="text">
+            <button id="startStopButton">Start</button>
+            <audio id="startSound" src="start-sound.mp3"></audio>
+            <audio id="highlightSound" src="fail.mp3"></audio>
+        </div>
+    
+        <script src="script.js"></script>
+    </div>
+</section>
+    
+</body>
+</html>
+
+
+<!-- 
+center game board
+randomize squares
+ wammy graphic in center 
+-->

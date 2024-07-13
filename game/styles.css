@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+/* universal selector zeros out everything*/
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f2f2f2;
+}
+
+.container {
+    text-align: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 5px;
+    margin: 20px auto;
+    width: 1500px;
+    height: 500px;
+    position: relative;
+    background: #333;
+    /* border: 30px solid blue; */
+    box-shadow: 
+    0 0 0 5px blue, /* Outer border */
+    0 0 0 30px yellow;
+}
+
+.square, .center-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ddd;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    border: 2px solid #333;
+    transition: background 0.3s;
+}
+
+.square {
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.center-square {
+    grid-column: 2 / 5;
+    grid-row: 2 / 5;
+    /* background: #ff0000; */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 12px solid #2f00ff;
+    opacity: 0.7;     /*   <<lighten  >>Darken */
+    background: #03a9f4;
+}
+
+.center-content {
+    font-size: 66px; 
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px #000;
+    
+}
+
+.highlighted {
+    background: yellow;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    opacity: 0.7;     /*   <<lighten  >>Darken */
+    background: #03a9f4;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.showcase
+{
+  position: absolute;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.showcase.active
+{
+  right: 300px;
+}
+
+.showcase video
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;     /*   <<lighten  >>Darken */
+}
+
+.overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #03a9f4;
+  mix-blend-mode: overlay;
+}
+
+
+
+
+
+
+@media (max-width: 991px)
+{
+  .showcase,
+  .showcase header
+  {
+    padding: 40px;
+  }
+  .text h2
+  {
+    font-size: 3em;
+  }
+  .text h3
+  {
+    font-size: 2em;
+  }
+}
