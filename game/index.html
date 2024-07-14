@@ -10,21 +10,22 @@
 
   
     <section class="showcase">
-            
-        <video src="explore.mp4" muted loop autoplay></video>
-        <div class="overlay"></div>
+            <header>
+                <h2 class="logo">Wammy</h2>
+            </header>
+        <video src="vid.mp4" muted loop autoplay></video>
+        <!-- <div class="overlay"></div> -->
         
         <div class="container">    
         <div class="board" id="board">
             <!-- Squares will be generated here by JavaScript -->
             <div class="center-square">
-                <div class="center-content" id="center-ct">Press<br>Your<br>Luck</div>
+                <div class="center-content" id="mycontent">Family<br>Wammy</div>
             </div>
         </div>
         <div class="text">
             <button id="startStopButton">Start</button>
-            <audio id="startSound" src="start-sound.mp3"></audio>
-            <audio id="highlightSound" src="fail.mp3"></audio>
+             <audio src="start-sound.mp3" id="startsound"></audio>
         </div>
     
         <script src="script.js"></script>
@@ -34,9 +35,12 @@
 </body>
 </html>
 
+<!--todo:   
+     squares 50 points/100/150  range: 50-400 50 intervals  sort of done
+rectangle done 
+bigger  done 
+center it  done
+button replace square with whammy   not done 
+should be Wammy done
 
-<!-- 
-center game board
-randomize squares
- wammy graphic in center 
 -->
