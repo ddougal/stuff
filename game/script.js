@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function startSpinner() {
         spinning = true;
         startStopButton.textContent = 'Stop';
-        startSound.play();
+        startSound.play(); // Play start sound
         spinInterval = setInterval(highlightRandomSquare, 100);
     }
 
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function stopSpinner() {
         spinning = false;
         startStopButton.textContent = 'Start';
+        startSound.pause(); // Play start sound
         clearInterval(spinInterval);
         // Move the highlighted square to the center
         moveSquareToCenter(currentSquareIndex);
