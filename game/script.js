@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function startSpinner() {
         spinning = true;
         startStopButton.textContent = 'Stop';
-        //startSound.play();
+        startSound.play();
         spinInterval = setInterval(highlightRandomSquare, 100);
     }
 
